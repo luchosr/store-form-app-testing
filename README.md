@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# Store Form App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Store product
 
-## Available Scripts
+As a merchandise manager, I want to store new products as a way of
+administrating my products.
 
-In the project directory, you can run:
+**Acceptance Criteria (AC):**
 
-### `npm start`
+- There must be a create product form page.
+- The form must have the following fields: name, size, type (electronic,
+  furniture, clothing) and a submit button.
+- All the fields are required.
+  - If the user leaves empty fields and clicks the submit button, the form page
+    must display required messages as the format: _“The [field name] is
+    required”_ aside of the proper field.
+  - If the user blurs a field that is empty, then the form must display the
+    required message for that field.
+- The form must send the data to a backend endpoint service.
+  - The submit button should be disabbled while the form page is fetching the
+    data. After fetching, the submit button does not have to be disabled.
+  - In the success path, the form page must display the success message
+    _“Product stored”_ and clean the fields values.
+  - In a server error, the form page must display the error message _“Unexpected
+    error, please try again”_.
+  - In the invalid request path, the form page must display the error message
+    _“The form is invalid, the fields [field1...fieldN] are required”_.
+  - In the not found service path, the form page must display the message
+    _“Connection error, please try later”_.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Aplicación de formulario de tienda
 
-### `npm test`
+## Almacenar producto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Como gerente de mercadería, quiero almacenar nuevos productos como una forma de
+poder administrarlos.
 
-### `npm run build`
+** Criterios de aceptación (AC): **
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Debe haber una página de formulario de creación de producto.
+- El formulario debe tener los siguientes campos: nombre, talla, tipo
+  (electrónico, mobiliario, ropa) y un botón de envío.
+- Todos los campos son obligatorios.
+  - Si el usuario deja campos vacíos y hace clic en el botón enviar, la página
+    del formulario debe mostrar los mensajes obligatorios con el formato: _ “El
+    [nombre del campo] es obligatorio” _ al lado del campo correspondiente.
+  - Si el usuario desenfoca un campo que está vacío, entonces el formulario debe
+    mostrar el mensaje requerido para ese campo.
+- El formulario debe enviar los datos a un servicio de punto final de backend.
+  - El botón de envío debe estar desactivado mientras la página del formulario
+    está recuperando los datos. Después de la recuperación, no es necesario
+    deshabilitar el botón de envío.
+  - En la ruta de éxito, la página del formulario debe mostrar el mensaje de
+    éxito _ "Producto almacenado" _ y limpiar los valores de los campos.
+  - En un error del servidor, la página del formulario debe mostrar el mensaje
+    de error _ "Error inesperado, inténtelo de nuevo" _.
+  - En la ruta de solicitud no válida, la página del formulario debe mostrar el
+    mensaje de error _ “El formulario no es válido, los campos [campo1 ...
+    campoN] son ​​obligatorios” _.
+  - En la ruta del servicio no encontrado, la página del formulario debe mostrar
+    el mensaje _ "Error de conexión, intente más tarde" _.
