@@ -5,16 +5,24 @@ import { screen, render } from '@testing-library/react';
 import Form from './Form';
 
 describe('when the form is mounted', () => {
+  beforeEach(() => render(<Form />));
+
   it('there must be a create product form page', () => {
-    render(<Form />);
     expect(
       screen.getByRole('heading', { name: /create product/i })
     ).toBeInTheDocument();
   });
 
   it('should exists the  fields: name, size, type (electronic, furniture, clothing) and a submit button.', () => {
-    render(<Form />);
-
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/size/i)).toBeInTheDocument();
+    // expect(screen.getByLabelText(/type/i)).toBeInTheDocument();
+    screen.debug();
+
+    // expect(screen.queryByText(/electronic/i)).toBeInTheDocument();
+  });
+
+  it('should exist the submit button', () => {
+    expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
   });
 });
