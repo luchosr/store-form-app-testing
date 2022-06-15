@@ -6,7 +6,6 @@ import Form from './Form';
 
 describe('when the form is mounted', () => {
   beforeEach(() => render(<Form />));
-
   it('there must be a create product form page', () => {
     expect(
       screen.getByRole('heading', { name: /create product/i })
@@ -49,5 +48,14 @@ describe('when the user blur an empty field', () => {
       target: { name: 'name', value: '' },
     });
     expect(screen.queryByText(/the name is required/i)).toBeInTheDocument();
+  });
+
+  it('should display a validation error message for the input size', () => {
+    render(<Form />);
+    expect(screen.queryByText(/the size is required/i)).not.toBeInTheDocument();
+    fireEvent.blur(screen.getByLabelText(/size/i), {
+      target: { name: 'size', value: '' },
+    });
+    expect(screen.queryByText(/the size is required/i)).toBeInTheDocument();
   });
 });

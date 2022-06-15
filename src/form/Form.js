@@ -35,7 +35,7 @@ const Form = () => {
     const { name, value } = e.target;
     setFormErrors({
       ...formErrors,
-      [name]: value.length ? '' : 'The name is required',
+      [name]: value.length ? '' : `The ${name} is required`,
     });
   };
   return (
@@ -50,7 +50,13 @@ const Form = () => {
           helperText={formErrors.name}
           onBlur={handleBlur}
         />
-        <TextField label='size' id='size' helperText={formErrors.size} />
+        <TextField
+          label='size'
+          id='size'
+          name='size'
+          helperText={formErrors.size}
+          onBlur={handleBlur}
+        />
         <InputLabel htmlFor='type'>Type</InputLabel>
         <Select
           labelId='demo-simple-select-label'
