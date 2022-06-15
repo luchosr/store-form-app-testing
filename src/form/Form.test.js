@@ -42,9 +42,9 @@ describe('when the user submits the form without values', () => {
 // If the user blurs a field that is empty, then the form must display therequired message for that field.
 
 describe('when the user blur an empty field', () => {
-  it('should display a validation error message', () => {
+  it('should display a validation error message for the input name', () => {
     render(<Form />);
-
+    expect(screen.queryByText(/the name is required/i)).not.toBeInTheDocument();
     fireEvent.blur(screen.getByLabelText(/name/i), {
       target: { name: 'name', value: '' },
     });

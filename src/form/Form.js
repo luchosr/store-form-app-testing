@@ -32,7 +32,7 @@ const Form = () => {
   };
 
   const handleBlur = (e) => {
-    const { name, value } = e;
+    const { name, value } = e.target;
     setFormErrors({
       ...formErrors,
       [name]: value.length ? '' : 'The name is required',
@@ -46,6 +46,7 @@ const Form = () => {
         <TextField
           label='name'
           id='name'
+          name='name'
           helperText={formErrors.name}
           onBlur={handleBlur}
         />
