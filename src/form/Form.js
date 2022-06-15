@@ -30,12 +30,25 @@ const Form = () => {
       }
     }
   };
+
+  const handleBlur = (e) => {
+    const { name, value } = e;
+    setFormErrors({
+      ...formErrors,
+      [name]: value.length ? '' : 'The name is required',
+    });
+  };
   return (
     <div>
       <h1>Create product</h1>
 
       <form onSubmit={handleSubmit}>
-        <TextField label='name' id='name' helperText={formErrors.name} />
+        <TextField
+          label='name'
+          id='name'
+          helperText={formErrors.name}
+          onBlur={handleBlur}
+        />
         <TextField label='size' id='size' helperText={formErrors.size} />
         <InputLabel htmlFor='type'>Type</InputLabel>
         <Select
