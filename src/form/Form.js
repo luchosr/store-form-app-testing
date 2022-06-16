@@ -6,6 +6,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
 
 const Form = () => {
+  const [isSaving, setIsSaving] = useState(false);
   const [formErrors, setFormErrors] = useState({
     name: '',
     size: '',
@@ -14,6 +15,8 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setIsSaving(true);
     const { name, size, type } = e.target.elements;
 
     if (!name.value) {
@@ -68,7 +71,9 @@ const Form = () => {
           <MenuItem value='furniture'>Furniture</MenuItem>
           <MenuItem value='clothing'>Clothing</MenuItem>
         </Select>
-        <Button type='submit'>Submit</Button>
+        <Button type='submit' disabled={isSaving}>
+          Submit
+        </Button>
       </form>
     </div>
   );
