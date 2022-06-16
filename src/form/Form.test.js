@@ -4,8 +4,8 @@ import { screen, render, fireEvent } from '@testing-library/react';
 
 import Form from './Form';
 
+beforeEach(() => render(<Form />));
 describe('when the form is mounted', () => {
-  beforeEach(() => render(<Form />));
   it('there must be a create product form page', () => {
     expect(
       screen.getByRole('heading', { name: /create product/i })
@@ -16,7 +16,6 @@ describe('when the form is mounted', () => {
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/size/i)).toBeInTheDocument();
     // expect(screen.getByLabelText(/type/i)).toBeInTheDocument();
-    screen.debug();
 
     // expect(screen.queryByText(/electronic/i)).toBeInTheDocument();
   });
@@ -28,7 +27,6 @@ describe('when the form is mounted', () => {
 
 describe('when the user submits the form without values', () => {
   it('should display validation messages', () => {
-    render(<Form />);
     expect(screen.queryByText(/The name is required/i)).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: /submit/i }));
@@ -42,7 +40,6 @@ describe('when the user submits the form without values', () => {
 
 describe('when the user blur an empty field', () => {
   it('should display a validation error message for the input name', () => {
-    render(<Form />);
     expect(screen.queryByText(/the name is required/i)).not.toBeInTheDocument();
     fireEvent.blur(screen.getByLabelText(/name/i), {
       target: { name: 'name', value: '' },
@@ -51,7 +48,6 @@ describe('when the user blur an empty field', () => {
   });
 
   it('should display a validation error message for the input size', () => {
-    render(<Form />);
     expect(screen.queryByText(/the size is required/i)).not.toBeInTheDocument();
     fireEvent.blur(screen.getByLabelText(/size/i), {
       target: { name: 'size', value: '' },
@@ -59,3 +55,9 @@ describe('when the user blur an empty field', () => {
     expect(screen.queryByText(/the size is required/i)).toBeInTheDocument();
   });
 });
+
+// describe("when the user submits the form", ()=>{
+//   it("should the submit button be disabled until the request is done", ()=>{
+//     expect(screen.getByRole('button', { name: /submit/i }))
+//   })
+// })
