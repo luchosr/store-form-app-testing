@@ -13,13 +13,16 @@ const Form = () => {
     type: '',
   });
 
+  const validateField = ({ name, value }) => {
+    setFormErrors((prevState) => ({
+      ...prevState,
+      [name]: value.length ? '' : `The ${name} is required`,
+    }));
+  };
+
   const validateForm = ({ name, size }) => {
-    if (!name.value) {
-      setFormErrors((prevState) => ({
-        ...prevState,
-        name: 'The name is required',
-      }));
-    }
+    validateField({ name: 'name', value: name });
+    validateField({ size: 'name', value: size });
 
     if (!size.value) {
       setFormErrors((prevState) => ({
@@ -35,7 +38,7 @@ const Form = () => {
     setIsSaving(true);
     const { name, size } = e.target.elements;
 
-    validateForm({ name, size });
+    validateForm({ name: name.value, size: size.value });
 
     await fetch('/products', {
       method: 'POST',
@@ -46,10 +49,7 @@ const Form = () => {
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
-    setFormErrors({
-      ...formErrors,
-      [name]: value.length ? '' : `The ${name} is required`,
-    });
+    validateField({ name, value });
   };
   return (
     <div>
