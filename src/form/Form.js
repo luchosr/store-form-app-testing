@@ -4,12 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
-
-const saveProduct = () =>
-  fetch('/products', {
-    method: 'POST',
-    body: JSON.stringify({}),
-  });
+import { saveProduct } from '../services/productServices';
 
 const Form = () => {
   const [isSaving, setIsSaving] = useState(false);
