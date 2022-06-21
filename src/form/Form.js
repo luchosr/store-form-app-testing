@@ -13,12 +13,7 @@ const Form = () => {
     type: '',
   });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    setIsSaving(true);
-    const { name, size, type } = e.target.elements;
-
+  const validateForm = ({ name, size }) => {
     if (!name.value) {
       setFormErrors((prevState) => ({
         ...prevState,
@@ -32,6 +27,15 @@ const Form = () => {
         size: 'The size is required',
       }));
     }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setIsSaving(true);
+    const { name, size } = e.target.elements;
+
+    validateForm({ name, size });
 
     await fetch('/products', {
       method: 'POST',
