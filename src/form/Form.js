@@ -13,7 +13,7 @@ const Form = () => {
     type: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setIsSaving(true);
@@ -24,14 +24,20 @@ const Form = () => {
         ...prevState,
         name: 'The name is required',
       }));
-
-      if (!size.value) {
-        setFormErrors((prevState) => ({
-          ...prevState,
-          size: 'The size is required',
-        }));
-      }
     }
+
+    if (!size.value) {
+      setFormErrors((prevState) => ({
+        ...prevState,
+        size: 'The size is required',
+      }));
+    }
+
+    await fetch('/products', {
+      method: 'POST',
+      body: JSON.stringify({}),
+    });
+    setIsSaving(false);
   };
 
   const handleBlur = (e) => {
