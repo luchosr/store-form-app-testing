@@ -5,6 +5,12 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
 
+const saveProduct = () =>
+  fetch('/products', {
+    method: 'POST',
+    body: JSON.stringify({}),
+  });
+
 const Form = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [formErrors, setFormErrors] = useState({
@@ -39,11 +45,7 @@ const Form = () => {
     const { name, size } = e.target.elements;
 
     validateForm({ name: name.value, size: size.value });
-
-    await fetch('/products', {
-      method: 'POST',
-      body: JSON.stringify({}),
-    });
+    await saveProduct();
     setIsSaving(false);
   };
 
