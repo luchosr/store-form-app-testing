@@ -8,6 +8,7 @@ import { saveProduct } from '../services/productServices';
 
 const Form = () => {
   const [isSaving, setIsSaving] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [formErrors, setFormErrors] = useState({
     name: '',
     size: '',
@@ -40,7 +41,12 @@ const Form = () => {
     const { name, size } = e.target.elements;
 
     validateForm({ name: name.value, size: size.value });
-    await saveProduct();
+    const response = await saveProduct();
+
+    if (response.status === 201) {
+      setIsSuccess(true);
+    }
+
     setIsSaving(false);
   };
 
@@ -51,6 +57,8 @@ const Form = () => {
   return (
     <div>
       <h1>Create product</h1>
+
+      {isSuccess && <p>Product Stored</p>}
 
       <form onSubmit={handleSubmit}>
         <TextField

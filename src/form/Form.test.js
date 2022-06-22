@@ -79,14 +79,14 @@ describe('when the user submits the form', () => {
     await waitFor(() => expect(submitBtn).not.toBeDisabled());
   });
 
-  it('the form page must display the success message “Product stored” and clean the fields values.', ()=>{
+  it('the form page must display the success message “Product stored” and clean the fields values.', async () => {
     const submitBtn = screen.getByRole('button', { name: /submit/i });
     expect(submitBtn).not.toBeDisabled();
 
-    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
+    fireEvent.click(submitBtn);
 
-    expect(submitBtn).toBeDisabled();
-
-    await waitFor(() => expect(screen.getByText(/product stored/i)).toBeInTheDocument());
-  })
+    await waitFor(() =>
+      expect(screen.getByText(/product stored/i)).toBeInTheDocument()
+    );
+  });
 });
