@@ -5,6 +5,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
 import { saveProduct } from '../services/productServices';
+import { CREATED_STATUS } from '../consts/httpStatus';
 
 const Form = () => {
   const [isSaving, setIsSaving] = useState(false);
@@ -43,7 +44,7 @@ const Form = () => {
     validateForm({ name: name.value, size: size.value });
     const response = await saveProduct();
 
-    if (response.status === 201) {
+    if (response.status === CREATED_STATUS) {
       setIsSuccess(true);
     }
 

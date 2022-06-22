@@ -5,10 +5,11 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
 import Form from './Form';
+import { CREATED_STATUS } from '../consts/httpStatus';
 
 const server = setupServer(
   rest.post('/products', (req, res, ctx) => {
-    return res(ctx.status(201));
+    return res(ctx.status(CREATED_STATUS));
   })
 );
 beforeAll(() => server.listen());
@@ -85,6 +86,7 @@ describe('when the user submits the form', () => {
 
     fireEvent.click(submitBtn);
 
+    // eslint-disable-next-line testing-library/prefer-find-by
     await waitFor(() =>
       expect(screen.getByText(/product stored/i)).toBeInTheDocument()
     );
