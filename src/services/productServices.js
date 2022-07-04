@@ -1,7 +1,10 @@
-export const saveProduct = () =>
+export const saveProduct = ({ name, size }) =>
   fetch('/products', {
     method: 'POST',
-    body: JSON.stringify({}),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, size }),
   });
 
 export default {

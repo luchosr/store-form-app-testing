@@ -34,6 +34,10 @@ const Form = () => {
       }));
     }
   };
+  const getFormValues = ({ name, size }) => ({
+    name: name.value,
+    size: size.value,
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,8 +45,8 @@ const Form = () => {
     setIsSaving(true);
     const { name, size } = e.target.elements;
 
-    validateForm({ name: name.value, size: size.value });
-    const response = await saveProduct();
+    validateForm(getFormValues({ name, size }));
+    const response = await saveProduct(getFormValues({ name, size }));
 
     if (response.status === CREATED_STATUS) {
       setIsSuccess(true);
@@ -77,12 +81,7 @@ const Form = () => {
           onBlur={handleBlur}
         />
         <InputLabel htmlFor='type'>Type</InputLabel>
-        <Select
-          labelId='demo-simple-select-label'
-          id='type'
-          value=''
-          label='type'
-        >
+        <Select labelId='demo-simple-select-label' id='type' label='type'>
           <MenuItem value='electronic'>Electronic</MenuItem>
           <MenuItem value='furniture'>Furniture</MenuItem>
           <MenuItem value='clothing'>Clothing</MenuItem>
