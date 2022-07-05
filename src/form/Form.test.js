@@ -85,21 +85,24 @@ describe('when the user submits the form', () => {
     await waitFor(() => expect(submitBtn).not.toBeDisabled());
   });
 
-  // it('the form page must display the success message “Product stored” and clean the fields values', async () => {
-  //   fireEvent.change(screen.getByLabelText(/name/i), {
-  //     target: { name: name, value: 'my product' },
-  //   });
-  //   fireEvent.change(screen.getByLabelText(/name/i), {
-  //     target: { name: size, value: '10' },
-  //   });
+  it('the form page must display the success message “Product stored” and clean the fields values', async () => {
+    const nameInput = screen.getByLabelText(/name/i);
+    const sizeInput = screen.getByLabelText(/size/i);
 
-  //   fireEvent.click(screen.getByRole('button', { name: /submit/i }));
+    fireEvent.change(nameInput, {
+      target: { name: name, value: 'my product' },
+    });
+    fireEvent.change(sizeInput, {
+      target: { name: size, value: '10' },
+    });
 
-  //   await waitFor(() =>
-  //     expect(screen.getByText(/product stored/i)).toBeInTheDocument()
-  //   );
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-  // expect(screen.getByLabelText(/name/i)).toHaveValue('');
-  // expect(screen.getByLabelText(/size/i)).toHaveValue('');
-  // });
+    await waitFor(() =>
+      expect(screen.getByText(/product stored/i)).toBeInTheDocument()
+    );
+
+    expect(screen.getByLabelText(/name/i)).toHaveValue('');
+    expect(screen.getByLabelText(/size/i)).toHaveValue('');
+  });
 });
