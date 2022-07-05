@@ -73,7 +73,7 @@ describe('when the user blur an empty field', () => {
   });
 });
 
-describe('when the user submits the form', () => {
+describe('when the user submits the form properly and the server returns created status', () => {
   it('should the submit button be disabled until the request is done', async () => {
     const submitBtn = screen.getByRole('button', { name: /submit/i });
     expect(submitBtn).not.toBeDisabled();
@@ -98,11 +98,25 @@ describe('when the user submits the form', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
+    // eslint-disable-next-line testing-library/prefer-find-by
     await waitFor(() =>
       expect(screen.getByText(/product stored/i)).toBeInTheDocument()
     );
 
     expect(screen.getByLabelText(/name/i)).toHaveValue('');
     expect(screen.getByLabelText(/size/i)).toHaveValue('');
+  });
+});
+
+describe('when the user submits the form and the server returns an unexpected error', () => {
+  it('the form page must display the error message “Unexpected error, please try again”', async () => {
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+    // eslint-disable-next-line testing-library/prefer-find-by
+    await waitFor(() =>
+      expect(
+        screen.getByText(/Unexpected error, please try again/i)
+      ).toBeInTheDocument()
+    );
   });
 });
