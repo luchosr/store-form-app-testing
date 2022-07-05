@@ -98,5 +98,8 @@ describe('when the user submits the form', () => {
   //   await waitFor(() =>
   //     expect(screen.getByText(/product stored/i)).toBeInTheDocument()
   //   );
+
+  // expect(screen.getByLabelText(/name/i)).toHaveValue('');
+  // expect(screen.getByLabelText(/size/i)).toHaveValue('');
   // });
 });
