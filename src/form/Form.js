@@ -44,6 +44,16 @@ const Form = () => {
     size: size.value,
   });
 
+  const handleFetchErrors = async (err) => {
+    if (err.status === ERROR_SERVER_STATUS) {
+      setErrorMessage('Unexpected error, please try again');
+    }
+    if (err.status === INVALID_REQUEST_STATUS) {
+      const data = await err.json();
+      setErrorMessage(data.message);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -64,13 +74,7 @@ const Form = () => {
         setIsSuccess(true);
       }
     } catch (err) {
-      if (err.status === ERROR_SERVER_STATUS) {
-        setErrorMessage('Unexpected error, please try again');
-      }
-      if (err.status === INVALID_REQUEST_STATUS) {
-        const data = await err.json();
-        setErrorMessage(data.message);
-      }
+      handleFetchErrors(err);
     }
 
     setIsSaving(false);
