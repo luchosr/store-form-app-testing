@@ -5,11 +5,12 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
 import { saveProduct } from '../services/productServices';
-import { CREATED_STATUS } from '../consts/httpStatus';
+import { CREATED_STATUS, ERROR_SERVER_STATUS } from '../consts/httpStatus';
 
 const Form = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formErrors, setFormErrors] = useState({
     name: '',
     size: '',
@@ -52,7 +53,9 @@ const Form = () => {
       e.target.reset();
       setIsSuccess(true);
     }
-
+    if (response.status === ERROR_SERVER_STATUS) {
+      setErrorMessage('Unexpected error, please try again');
+    }
     setIsSaving(false);
   };
 
@@ -65,7 +68,7 @@ const Form = () => {
       <h1>Create product</h1>
 
       {isSuccess && <p>Product Stored</p>}
-
+      <p>{errorMessage}</p>
       <form onSubmit={handleSubmit}>
         <TextField
           label='name'
