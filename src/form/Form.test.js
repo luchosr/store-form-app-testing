@@ -20,7 +20,9 @@ const server = setupServer(
 beforeAll(() => server.listen());
 
 afterAll(() => server.close());
+beforeEach(() => server.resetHandlers());
 
+// eslint-disable-next-line testing-library/no-render-in-setup
 beforeEach(() => render(<Form />));
 describe('when the form is mounted', () => {
   it('there must be a create product form page', () => {
@@ -116,6 +118,31 @@ describe('when the user submits the form and the server returns an unexpected er
     await waitFor(() =>
       expect(
         screen.getByText(/Unexpected error, please try again/i)
+      ).toBeInTheDocument()
+    );
+  });
+});
+
+describe('when the user submits the form and the server returns an invalid request error', () => {
+  it('the form page must display the error message “The form is invalid, the fields [field1...fieldN] are required”', async () => {
+    server.use(
+      rest.post('/products', (req, res, ctx) => {
+        return res(
+          ctx.status(400),
+          ctx.json({
+            message: 'The form is invalid, the fields name, size are required',
+          })
+        );
+      })
+    );
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+    // eslint-disable-next-line testing-library/prefer-find-by
+    await waitFor(() =>
+      expect(
+        screen.getByText(
+          /The form is invalid, the fields name, size are required/i
+        )
       ).toBeInTheDocument()
     );
   });

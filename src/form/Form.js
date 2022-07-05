@@ -5,7 +5,11 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
 import { saveProduct } from '../services/productServices';
-import { CREATED_STATUS, ERROR_SERVER_STATUS } from '../consts/httpStatus';
+import {
+  CREATED_STATUS,
+  ERROR_SERVER_STATUS,
+  INVALID_REQUEST_STATUS,
+} from '../consts/httpStatus';
 
 const Form = () => {
   const [isSaving, setIsSaving] = useState(false);
@@ -47,15 +51,28 @@ const Form = () => {
     const { name, size } = e.target.elements;
 
     validateForm(getFormValues({ name, size }));
-    const response = await saveProduct(getFormValues({ name, size }));
 
-    if (response.status === CREATED_STATUS) {
-      e.target.reset();
-      setIsSuccess(true);
+    try {
+      const response = await saveProduct(getFormValues({ name, size }));
+
+      if (!response.ok) {
+        throw response;
+      }
+
+      if (response.status === CREATED_STATUS) {
+        e.target.reset();
+        setIsSuccess(true);
+      }
+    } catch (err) {
+      if (err.status === ERROR_SERVER_STATUS) {
+        setErrorMessage('Unexpected error, please try again');
+      }
+      if (err.status === INVALID_REQUEST_STATUS) {
+        const data = await err.json();
+        setErrorMessage(data.message);
+      }
     }
-    if (response.status === ERROR_SERVER_STATUS) {
-      setErrorMessage('Unexpected error, please try again');
-    }
+
     setIsSaving(false);
   };
 
