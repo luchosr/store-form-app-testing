@@ -47,11 +47,15 @@ const Form = () => {
   const handleFetchErrors = async (err) => {
     if (err.status === ERROR_SERVER_STATUS) {
       setErrorMessage('Unexpected error, please try again');
+      return;
     }
     if (err.status === INVALID_REQUEST_STATUS) {
       const data = await err.json();
       setErrorMessage(data.message);
+      return;
     }
+
+    setErrorMessage('connection error, please try again later');
   };
 
   const handleSubmit = async (e) => {

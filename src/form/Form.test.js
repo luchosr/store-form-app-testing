@@ -5,7 +5,11 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
 import Form from './Form';
-import { CREATED_STATUS, ERROR_SERVER_STATUS } from '../consts/httpStatus';
+import {
+  CREATED_STATUS,
+  ERROR_SERVER_STATUS,
+  INVALID_REQUEST_STATUS,
+} from '../consts/httpStatus';
 
 const server = setupServer(
   rest.post('/products', (req, res, ctx) => {
@@ -128,7 +132,7 @@ describe('when the user submits the form and the server returns an invalid reque
     server.use(
       rest.post('/products', (req, res, ctx) => {
         return res(
-          ctx.status(400),
+          ctx.status(INVALID_REQUEST_STATUS),
           ctx.json({
             message: 'The form is invalid, the fields name, size are required',
           })
@@ -143,6 +147,24 @@ describe('when the user submits the form and the server returns an invalid reque
         screen.getByText(
           /The form is invalid, the fields name, size are required/i
         )
+      ).toBeInTheDocument()
+    );
+  });
+});
+
+describe('when the user submits the form and the server returns an invalid request error', () => {
+  it('the form page must display the error message “The form is invalid, the fields [field1...fieldN] are required”', async () => {
+    server.use(
+      rest.post('/products', (req, res) =>
+        res.networkError('Failed to connect')
+      )
+    );
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+    // eslint-disable-next-line testing-library/prefer-find-by
+    await waitFor(() =>
+      expect(
+        screen.getByText(/connection error, please try again later/i)
       ).toBeInTheDocument()
     );
   });
