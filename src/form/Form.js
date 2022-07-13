@@ -4,6 +4,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+
 import { saveProduct } from '../services/productServices';
 import {
   CREATED_STATUS,
@@ -89,37 +93,40 @@ const Form = () => {
     validateField({ name, value });
   };
   return (
-    <div>
+    <Container maxWidth='xs'>
+      <CssBaseline />
       <h1>Create product</h1>
 
       {isSuccess && <p>Product Stored</p>}
       <p>{errorMessage}</p>
       <form onSubmit={handleSubmit}>
-        <TextField
-          label='name'
-          id='name'
-          name='name'
-          helperText={formErrors.name}
-          onBlur={handleBlur}
-        />
-        <TextField
-          label='size'
-          id='size'
-          name='size'
-          helperText={formErrors.size}
-          onBlur={handleBlur}
-        />
-        <InputLabel htmlFor='type'>Type</InputLabel>
-        <Select labelId='demo-simple-select-label' id='type' label='type'>
-          <MenuItem value='electronic'>Electronic</MenuItem>
-          <MenuItem value='furniture'>Furniture</MenuItem>
-          <MenuItem value='clothing'>Clothing</MenuItem>
-        </Select>
-        <Button type='submit' disabled={isSaving}>
-          Submit
-        </Button>
+        <Grid container>
+          <TextField
+            label='name'
+            id='name'
+            name='name'
+            helperText={formErrors.name}
+            onBlur={handleBlur}
+          />
+          <TextField
+            label='size'
+            id='size'
+            name='size'
+            helperText={formErrors.size}
+            onBlur={handleBlur}
+          />
+          <InputLabel htmlFor='type'>Type</InputLabel>
+          <Select labelId='demo-simple-select-label' id='type' label='type'>
+            <MenuItem value='electronic'>Electronic</MenuItem>
+            <MenuItem value='furniture'>Furniture</MenuItem>
+            <MenuItem value='clothing'>Clothing</MenuItem>
+          </Select>
+          <Button type='submit' disabled={isSaving}>
+            Submit
+          </Button>
+        </Grid>
       </form>
-    </div>
+    </Container>
   );
 };
 
